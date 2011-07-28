@@ -10,27 +10,24 @@
  */
 (function($, window, document, undefined)
 {
-    $(function() {
-        $(window).hashchange(function() {
-            var matches = decodeURIComponent(location.hash).match(/css\((.+)\)/);
-            if (matches) {
-                try {
-                    var target = $("body").find(matches[1]); // avoiding XSS
-                    if (target.length) {
-                        setTimeout(function() { // for IE6
-                            target = target.eq(0);
-                            var offset = target.offset();
-                            var x = offset.left - $(window).width() + target.width();
-                            var y = offset.top;
-                            $("html, body").scrollLeft(x).scrollTop(y);
-                            target.focus();
-                        }, 1);
-                    }
+    $(window).hashchange(function() {
+        var matches = decodeURIComponent(location.hash).match(/css\((.+)\)/);
+        if (matches) {
+            try {
+                var target = $("body").find(matches[1]); // avoiding XSS
+                if (target.length) {
+                    setTimeout(function() { // for IE6
+                        target = target.eq(0);
+                        var offset = target.offset();
+                        var x = offset.left - $(window).width() + target.width();
+                        var y = offset.top;
+                        $("html, body").scrollLeft(x).scrollTop(y);
+                        target.focus();
+                    }, 1);
                 }
-                catch (e) {}
             }
-        });
-        $(window).hashchange();
+            catch (e) {}
+        }
     });
 }
 )(jQuery, this, this.document);
